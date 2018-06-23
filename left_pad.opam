@@ -1,0 +1,16 @@
+opam-version: "1.2"
+name: "left_pad"
+maintainer: "Frederic Bour <frederic.bour@lakaban.net>"
+authors: "Frederic Bour <frederic.bour@lakaban.net>"
+homepage: "https://github.com/let-def/ibutsu"
+bug-reports: "https://github.com/let-def/ibutsu"
+license: "ISC"
+dev-repo: "https://github.com/let-def/ibutsu.git"
+doc: "https://let-def.github.io/ibutsu/doc"
+
+build: [
+  ["jbuiler" "build" "-p" name]
+]
+depends: [
+  "jbuilder" {build}
+]
