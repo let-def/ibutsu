@@ -1,0 +1,92 @@
+(library
+ ((name minimp3)
+  (public_name ibutsu.minimp3)
+  (wrapped false)
+  (modules minimp3)
+  (c_names (minimp3_stubs))
+  (libraries (bigarray))
+  (synopsis "MP3 decoder")))
+
+(library
+ ((name image_type)
+  (public_name ibutsu.image_type)
+  (wrapped false)
+  (modules image_type)
+  (libraries (result bigarray))
+  (synopsis "Simple representation of discrete 2D images")))
+
+(library
+ ((name stb_image)
+  (public_name ibutsu.stb_image)
+  (wrapped false)
+  (modules stb_image)
+  (c_names (stb_image_stubs))
+  (libraries (image_type))
+  (synopsis "Image decoder (png, jpg, ...)")))
+
+(library
+ ((name stb_image_resize)
+  (public_name ibutsu.stb_image_resize)
+  (wrapped false)
+  (modules stb_image_resize)
+  (c_names (stb_image_resize_stubs))
+  (libraries (image_type))
+  (synopsis "Image resampler")))
+
+(library
+ ((name stb_image_write)
+  (public_name ibutsu.stb_image_write)
+  (wrapped false)
+  (modules stb_image_write)
+  (c_flags (-Og -ggdb))
+  (c_names (stb_image_write_stubs))
+  (libraries (image_type))
+  (synopsis "Image encoder (png, jpg, ...)")))
+
+(library
+ ((name stb_perlin)
+  (public_name ibutsu.stb_perlin)
+  (wrapped false)
+  (modules stb_perlin)
+  (c_names (stb_perlin_stubs))
+  (synopsis "Perlin noise generation")))
+
+(library
+ ((name stb_truetype)
+  (public_name ibutsu.stb_truetype)
+  (wrapped false)
+  (modules stb_truetype)
+  (c_names (stb_truetype_stubs))
+  (libraries (bigarray))
+  (synopsis "Truetype font (TTF) decoder and renderer")))
+
+;(library
+; ((name stb_vorbis)
+;  (public_name ibutsu.stb_vorbis)
+;  (wrapped false)
+;  (c_names (stb_vorbis_stubs))
+;  (libraries (bigarray))
+;  (synopsis "FIXME")))
+
+(executable
+ ((name tests)
+  (modules (tests))
+  (libraries (result minimp3 stb_perlin stb_image stb_image_write stb_image_resize))))
+
+(rule
+ (with-stdout-to tests.bc.output 
+  (setenv "LD_LIBRARY_PATH" "." 
+   (run ./tests.bc))))
+
+(rule
+ (with-stdout-to tests.exe.output (run ./tests.exe)))
+
+(alias
+ ((name runtest)
+  (deps (test_pokeball.png tests.bc))
+  (action (diff tests.expected tests.bc.output))))
+
+(alias
+ ((name runtest)
+  (deps (test_pokeball.png tests.exe))
+  (action (diff tests.expected tests.exe.output))))
