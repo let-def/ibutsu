@@ -1,0 +1,97 @@
+(library
+ (name minimp3)
+ (public_name ibutsu.minimp3)
+ (wrapped false)
+ (modules minimp3)
+ (foreign_stubs (language c) (names minimp3_stubs))
+ (libraries bigarray)
+ (synopsis "MP3 decoder"))
+
+(library
+ (name image_type)
+ (public_name ibutsu.image_type)
+ (wrapped false)
+ (modules image_type)
+ (libraries result bigarray)
+ (synopsis "Simple representation of discrete 2D images"))
+
+(library
+ (name stb_image)
+ (public_name ibutsu.stb_image)
+ (wrapped false)
+ (modules stb_image)
+ (foreign_stubs (language c) (names stb_image_stubs))
+ (libraries image_type)
+ (synopsis "Image decoder (png, jpg, ...)"))
+
+(library
+ (name stb_image_resize)
+ (public_name ibutsu.stb_image_resize)
+ (wrapped false)
+ (modules stb_image_resize)
+ (foreign_stubs (language c) (names stb_image_resize_stubs))
+ (libraries image_type)
+ (synopsis "Image resampler"))
+
+(library
+ (name stb_image_write)
+ (public_name ibutsu.stb_image_write)
+ (wrapped false)
+ (modules stb_image_write)
+ (foreign_stubs (language c) 
+  (names stb_image_write_stubs) (flags -Og -ggdb))
+ (libraries image_type)
+ (synopsis "Image encoder (png, jpg, ...)"))
+
+(library
+ (name stb_perlin)
+ (public_name ibutsu.stb_perlin)
+ (wrapped false)
+ (modules stb_perlin)
+ (foreign_stubs (language c) (names stb_perlin_stubs))
+ (synopsis "Perlin noise generation"))
+
+(library
+ (name stb_truetype)
+ (public_name ibutsu.stb_truetype)
+ (wrapped false)
+ (modules stb_truetype)
+ (foreign_stubs (language c) (names stb_truetype_stubs))
+ (libraries bigarray)
+ (synopsis "Truetype font (TTF) decoder and renderer"))
+
+;(library
+; ((name stb_vorbis)
+;  (public_name ibutsu.stb_vorbis)
+;  (wrapped false)
+;  (foreign_stubs (language c) (names (stb_vorbis_stubs)))
+;  (libraries (bigarray))
+;  (synopsis "FIXME")))
+
+(executable
+ (name tests)
+ (modules tests)
+ (modes byte native)
+ (libraries result minimp3 stb_perlin stb_image stb_image_write stb_image_resize))
+
+(rule
+ (alias runtest)
+ (action
+  (with-stdout-to tests.bc.output 
+   (setenv "LD_LIBRARY_PATH" "." 
+    (run %{exe:./tests.bc})))))
+
+(rule
+ (alias runtest)
+ (action
+  (with-stdout-to tests.exe.output (run ./tests.exe))))
+
+(rule
+ (alias runtest)
+ (deps test_pokeball.png tests.bc)
+ (action (diff tests.expected tests.bc.output)))
+
+(rule
+ (alias runtest)
+ (deps test_pokeball.png tests.exe)
+ (action (diff tests.expected tests.exe.output)))

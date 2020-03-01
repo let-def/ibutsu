@@ -18,9 +18,9 @@ let manage f ?channels filename =
   match f ?channels filename with
   | Result.Error _ as err -> err
   | Result.Ok image ->
-    (*let managed = clone image in
-    free_unmanaged image;*)
-    Result.Ok image
+    let managed = clone image in
+    free_unmanaged image;
+    Result.Ok managed
 
 let load    ?channels filename = manage load_unmanaged ?channels filename
 let loadf   ?channels filename = manage loadf_unmanaged ?channels filename

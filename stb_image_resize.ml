@@ -40,7 +40,7 @@ let validate input output alpha_channel =
   if Image_type.channels input <> Image_type.channels output then
     invalid_arg "Stb_image_resize: \
                  input and output should have the same number of channels";
-  if Image_type.channels input > alpha_channel then
+  if Image_type.channels input < alpha_channel then
     invalid_arg "Stb_image_resize: invalid alpha channel index"
 
 let resize_u8 ~input ~output

@@ -1,8 +1,8 @@
 all:
-	jbuilder build
+	dune build
 
 clean:
-	jbuilder clean
+	dune clean
 
 SOURCES= \
 	"https://github.com/lieff/minimp3/raw/master/minimp3.h" \
@@ -18,7 +18,7 @@ update:
 	for i in $(SOURCES); do wget -O "$$(basename "$$i")" "$$i"; done
 
 test:
-	jbuilder runtest -f
+	dune runtest -f
 
 promote:
-	jbuilder promote
+	dune promote

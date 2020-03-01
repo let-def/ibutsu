@@ -6,30 +6,31 @@ let () =
     print_float f;
     print_newline ()
   in
+  (
+    print_endline "Stb_perlin.noise3";
+    pf (noise3 0.0 2.0 4.0 1 1 1);
+    pf (noise3 0.1 2.0 4.0 1 2 1);
+    pf (noise3 0.1 2.1 4.0 1 2 3);
+    pf (noise3 0.1 2.1 4.1 3 2 1);
 
-  print_endline "Stb_perlin.noise3";
-  pf (noise3 0.0 2.0 4.0 1 1 1);
-  pf (noise3 0.1 2.0 4.0 1 2 1);
-  pf (noise3 0.1 2.1 4.0 1 2 3);
-  pf (noise3 0.1 2.1 4.1 3 2 1);
+    print_endline "Stb_perlin.ridge_noise3";
+    pf (ridge_noise3 0.0 2.0 4.0 1.0 1.0 0.0 1 1 1 1);
+    pf (ridge_noise3 0.1 2.0 4.0 1.0 1.0 0.0 1 1 2 1);
+    pf (ridge_noise3 0.1 2.1 4.0 1.0 1.0 0.0 1 1 1 3);
+    pf (ridge_noise3 0.1 2.1 4.1 1.0 1.0 0.0 1 1 1 1);
 
-  print_endline "Stb_perlin.ridge_noise3";
-  pf (ridge_noise3 0.0 2.0 4.0 1.0 1.0 0.0 1 1 1 1);
-  pf (ridge_noise3 0.1 2.0 4.0 1.0 1.0 0.0 1 1 2 1);
-  pf (ridge_noise3 0.1 2.1 4.0 1.0 1.0 0.0 1 1 1 3);
-  pf (ridge_noise3 0.1 2.1 4.1 1.0 1.0 0.0 1 1 1 1);
+    print_endline "Stb_perlin.fbm_noise3";
+    pf (fbm_noise3 0.0 2.0 4.0 1.0 1.0 1 1 1 1);
+    pf (fbm_noise3 0.1 2.0 4.0 1.0 1.0 1 1 2 1);
+    pf (fbm_noise3 0.1 2.1 4.0 1.0 1.0 1 1 1 3);
+    pf (fbm_noise3 0.1 2.1 4.1 1.0 1.0 1 1 1 1);
 
-  print_endline "Stb_perlin.fbm_noise3";
-  pf (fbm_noise3 0.0 2.0 4.0 1.0 1.0 1 1 1 1);
-  pf (fbm_noise3 0.1 2.0 4.0 1.0 1.0 1 1 2 1);
-  pf (fbm_noise3 0.1 2.1 4.0 1.0 1.0 1 1 1 3);
-  pf (fbm_noise3 0.1 2.1 4.1 1.0 1.0 1 1 1 1);
-
-  print_endline "Stb_perlin.turbulence_noise3";
-  pf (turbulence_noise3 0.0 2.0 4.0 1.0 1.0 1 1 1 1);
-  pf (turbulence_noise3 0.1 2.0 4.0 1.0 1.0 1 1 2 1);
-  pf (turbulence_noise3 0.1 2.1 4.0 1.0 1.0 1 1 1 3);
-  pf (turbulence_noise3 0.1 2.1 4.1 1.0 1.0 1 1 1 1)
+    print_endline "Stb_perlin.turbulence_noise3";
+    pf (turbulence_noise3 0.0 2.0 4.0 1.0 1.0 1 1 1 1);
+    pf (turbulence_noise3 0.1 2.0 4.0 1.0 1.0 1 1 2 1);
+    pf (turbulence_noise3 0.1 2.1 4.0 1.0 1.0 1 1 1 3);
+    pf (turbulence_noise3 0.1 2.1 4.1 1.0 1.0 1 1 1 1)
+  ) [@ocaml.warning "-6"]
 ;;
 
 let () =
@@ -276,8 +277,10 @@ let () =
       result
   in
   let ic = open_in_bin "test_pokeball.png" in
-  let buffer = Bigarray.Array1.map_file (Unix.descr_of_in_channel ic)
-      Bigarray.int8_unsigned Bigarray.c_layout false (in_channel_length ic)
+  let buffer =
+    Unix.map_file (Unix.descr_of_in_channel ic)
+      Bigarray.int8_unsigned Bigarray.c_layout false [|in_channel_length ic|]
+    |> Bigarray.array1_of_genarray
   in
   check_and_write "pokeball"
     (Read.load "test_pokeball.png")
@@ -326,10 +329,6 @@ let () =
   check_and_write "padded_pokeball_4"
     (padded_image (Read.load ~channels:4 "test_pokeball.png"))
     (padded_image (Read.decode ~channels:4 buffer));
-  (*print_endline (match Sys.backend_type with
-      | Sys.Native -> "Native"
-      | Sys.Bytecode -> "Bytecode"
-      | Sys.Other x -> x);*)
   close_in ic
 ;;
 

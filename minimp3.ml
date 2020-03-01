@@ -26,7 +26,7 @@ external decode_bytes
   : t -> bytes -> offset:int -> length:int -> samples -> frame_info -> int
   = "ml_minimp3_decode_frame_bc" "ml_minimp3_decode_frame"
 
-let validate t length' ~offset ~length pcm =
+let validate _t length' ~offset ~length pcm =
   if offset < 0 || offset > length' || length' - offset < length then
     invalid_arg "Minimp3.decode: input out of bounds";
   if Bigarray.Array1.dim pcm < buffer_size then
