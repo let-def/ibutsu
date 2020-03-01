@@ -1,0 +1,8 @@
+(library
+ (name stb_truetype)
+ (public_name ibutsu.stb_truetype)
+ (wrapped false)
+ (modules stb_truetype)
+ (foreign_stubs (language c) (names stb_truetype_stubs))
+ (libraries bigarray)
+ (synopsis "Truetype font (TTF) decoder and renderer"))

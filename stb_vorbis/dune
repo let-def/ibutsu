@@ -1,0 +1,7 @@
+;(library
+; ((name stb_vorbis)
+;  (public_name ibutsu.stb_vorbis)
+;  (wrapped false)
+;  (foreign_stubs (language c) (names (stb_vorbis_stubs)))
+;  (libraries (bigarray))
+;  (synopsis "FIXME")))

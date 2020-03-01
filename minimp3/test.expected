@@ -1,0 +1,24 @@
+samples = 576 average = 0.000000
+{ frame_bytes = 288; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 64 }
+samples = 576 average = 0.000000
+{ frame_bytes = 360; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 80 }
+samples = 576 average = 246.579861
+{ frame_bytes = 216; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 48 }
+samples = 576 average = -14.934028
+{ frame_bytes = 252; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 56 }
+samples = 576 average = -211.571181
+{ frame_bytes = 180; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 40 }
+samples = 576 average = 4.192708
+{ frame_bytes = 180; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 40 }
+samples = 576 average = 2030.373264
+{ frame_bytes = 144; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 32 }
+samples = 576 average = -2340.375000
+{ frame_bytes = 180; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 40 }
+samples = 576 average = -1738.871528
+{ frame_bytes = 144; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 32 }
+samples = 576 average = -1057.493056
+{ frame_bytes = 144; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 32 }
+samples = 576 average = -497.923611
+{ frame_bytes = 216; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 48 }
+samples = 576 average = 0.180556
+{ frame_bytes = 36; channels = 1; hz = 16000; layer = 3; bitrate_kbps = 8 }

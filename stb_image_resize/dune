@@ -1,0 +1,25 @@
+(library
+ (name stb_image_resize)
+ (public_name ibutsu.stb_image_resize)
+ (wrapped false)
+ (modules stb_image_resize)
+ (foreign_stubs (language c) (names stb_image_resize_stubs))
+ (libraries image_type)
+ (synopsis "Image resampler"))
+
+(executable
+ (name test)
+ (modules test)
+ (modes native)
+ (libraries stb_image stb_image_write stb_image_resize))
+
+(rule
+ (alias runtest)
+ (deps ../test_pokeball.png)
+ (action
+  (with-stdout-to test.exe.output (run %{exe:test.exe}))))
+
+(rule
+ (alias runtest)
+ (deps test.exe)
+ (action (diff test.expected test.exe.output)))

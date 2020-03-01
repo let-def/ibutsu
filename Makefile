@@ -1,3 +1,5 @@
+.PHONY: all clean update test promote
+
 all:
 	dune build
 
@@ -15,7 +17,10 @@ SOURCES= \
 	"https://github.com/nothings/stb/raw/master/stb_vorbis.c"
 
 update:
-	for i in $(SOURCES); do wget -O "$$(basename "$$i")" "$$i"; done
+	for i in $(SOURCES); do \
+		BASENAME="$$(basename "$$i")"; \
+		DIRECTORY="$${BASENAME%.*}"; \
+		wget -O "$$DIRECTORY/$$BASENAME" "$$i"; done
 
 test:
 	dune runtest -f

@@ -1,0 +1,7 @@
+(library
+ (name image_type)
+ (public_name ibutsu.image_type)
+ (wrapped false)
+ (modules image_type)
+ (libraries result bigarray)
+ (synopsis "Simple representation of discrete 2D images"))

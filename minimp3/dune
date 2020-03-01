@@ -1,0 +1,36 @@
+(library
+ (name minimp3)
+ (public_name ibutsu.minimp3)
+ (wrapped false)
+ (modules minimp3)
+ (foreign_stubs (language c) (names minimp3_stubs))
+ (libraries bigarray)
+ (synopsis "MP3 decoder"))
+
+(executable
+ (name test)
+ (modules test)
+ (modes byte native)
+ (libraries minimp3))
+
+(rule
+ (alias runtest)
+ (action
+  (with-stdout-to test.bc.output 
+   (setenv "LD_LIBRARY_PATH" "." 
+    (run %{exe:test.bc})))))
+
+(rule
+ (alias runtest)
+ (action
+  (with-stdout-to test.exe.output (run %{exe:test.exe}))))
+
+(rule
+ (alias runtest)
+ (deps test.bc)
+ (action (diff test.expected test.bc.output)))
+
+(rule
+ (alias runtest)
+ (deps test.exe)
+ (action (diff test.expected test.exe.output)))

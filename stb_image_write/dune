@@ -1,0 +1,26 @@
+(library
+ (name stb_image_write)
+ (public_name ibutsu.stb_image_write)
+ (wrapped false)
+ (modules stb_image_write)
+ (foreign_stubs (language c) 
+  (names stb_image_write_stubs) (flags -Og -ggdb))
+ (libraries image_type)
+ (synopsis "Image encoder (png, jpg, ...)"))
+
+(executable
+ (name test)
+ (modules test)
+ (modes byte native)
+ (libraries stb_image stb_image_write))
+
+(rule
+ (alias runtest)
+ (deps ../test_pokeball.png)
+ (action
+  (with-stdout-to test.exe.output (run %{exe:test.exe}))))
+
+(rule
+ (alias runtest)
+ (deps test.exe)
+ (action (diff test.expected test.exe.output)))

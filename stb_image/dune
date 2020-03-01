@@ -1,0 +1,8 @@
+(library
+ (name stb_image)
+ (public_name ibutsu.stb_image)
+ (wrapped false)
+ (modules stb_image)
+ (foreign_stubs (language c) (names stb_image_stubs))
+ (libraries image_type)
+ (synopsis "Image decoder (png, jpg, ...)"))
