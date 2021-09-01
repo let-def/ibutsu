@@ -11,7 +11,7 @@ build: [
   ["jbuiler" "build" "-p" name]
 ]
 depends: [
-  "jbuilder" {build}
+  "dune" {build & >= "1.0"}
   "result"
 ]
 available: [ ocaml-version != "4.01.0" ]
