@@ -11,7 +11,6 @@ SOURCES= \
 	"https://github.com/nothings/stb/raw/master/stb_image.h" \
 	"https://github.com/nothings/stb/raw/master/stb_image_resize.h" \
 	"https://github.com/nothings/stb/raw/master/stb_image_write.h" \
-	"https://github.com/nothings/stb/raw/master/stb_perlin.h" \
 	"https://github.com/nothings/stb/raw/master/stb_rect_pack.h" \
 	"https://github.com/nothings/stb/raw/master/stb_truetype.h" \
 	"https://github.com/nothings/stb/raw/master/stb_vorbis.c"
