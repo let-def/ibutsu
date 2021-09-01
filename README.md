@@ -14,6 +14,7 @@ The modules available are:
 - `Stb_image_resize`: image resizer with a variety of resize filters and image
   formats
 - `Stb_truetype`: truetype font (*.ttf) decoder and rasterizer
+- `Stb_vorbis`: OGG Vorbis decoder
 - `Minimp3`: high-quality MP3 (plus audio layer 1 and 2) decoder
 
 [Stb](https://github.com/nothings/stb/) is released by 

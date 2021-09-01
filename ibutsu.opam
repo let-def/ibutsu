@@ -8,7 +8,9 @@ bug-reports: "https://github.com/let-def/ibutsu"
 license: "ISC"
 dev-repo: "https://github.com/let-def/ibutsu.git"
 build: [
-  ["jbuiler" "build" "-p" name]
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
 ]
 depends: [
   "dune" {build & >= "1.0"}
